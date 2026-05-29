@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Company Enricher</string>
+    <string name="app_title">Обогащение компании</string>
+    <string name="app_subtitle">Мобильный клиент к основному проекту Internship (enrich.php). На эмуляторе по умолчанию: 10.0.2.2 = ваш ПК с XAMPP.</string>
+    <string name="hint_domain">Сайт / домен</string>
+    <string name="hint_api">URL API enrich.php</string>
+    <string name="btn_enrich">Обогатить</string>
+    <string name="btn_save_api">Сохранить URL</string>
+</resources>

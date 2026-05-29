@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://localhost http://127.0.0.1; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' http://localhost http://127.0.0.1">
+  <title>Company Enricher</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Обогащение компании</h1>
+      <p class="subtitle">Десктоп-клиент к основному проекту <strong>Internship</strong>. Данные берутся из того же <code>enrich.php</code>.</p>
+    </header>
+
+    <section class="card">
+      <label for="domain">Сайт / домен</label>
+      <input id="domain" type="text" placeholder="example.com или https://example.com" autocomplete="off">
+      <button id="enrichBtn" type="button">Обогатить</button>
+      <p class="hint">Нужен запущенный XAMPP (Apache) и папка <code>work/Internship</code>.</p>
+    </section>
+
+    <section id="result" class="card result-panel" hidden></section>
+
+    <p id="status" class="status" role="status"></p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+/node_modules/
+/dist/
+/engine/config/config.php
+/engine/storage/logs/*.jsonl
+/.idea/
+/.vscode/
+*.log

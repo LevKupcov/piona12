@@ -1,0 +1,38 @@
+{
+  "name": "company-enricher-desktop",
+  "version": "1.0.0",
+  "description": "Десктоп-приложение для извлечения контактов компании с сайта по ссылке",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^24.43.0"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.local.company-enricher",
+    "productName": "Company Enricher",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": ["nsis"],
+      "icon": null
+    },
+    "files": [
+      "electron-main.js",
+      "preload.js",
+      "lib/**/*",
+      "renderer/**/*",
+      "engine/**/*"
+    ]
+  }
+}

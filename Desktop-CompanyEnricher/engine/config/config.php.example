@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'app_name' => 'Bitrix24 Company Enricher',
+    'debug' => true,
+
+    'ai' => [
+        'provider' => 'bitrix24',
+        'model' => 'default',
+        // Укажите REST-метод AI, доступный на вашем портале.
+        // Пример: 'ai.prompt' (название зависит от вашего тарифа/доступа API).
+        'bitrix_method' => '',
+    ],
+
+    'crm' => [
+        // Маппинг источника -> вашего кастомного UF_CRM_* поля.
+        // Подставьте реальные коды полей из вашей CRM.
+        'custom_field_mapping' => [
+            // 'UF_CRM_1711111111' => 'industry',
+            // 'UF_CRM_1722222222' => 'city',
+            // 'UF_CRM_1733333333' => 'socials_raw',
+            // 'UF_CRM_1744444444' => 'ai_summary',
+        ],
+    ],
+];

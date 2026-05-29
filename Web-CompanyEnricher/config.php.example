@@ -1,0 +1,9 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'enrich_api_url' => 'http://localhost/work/Internship/public/enrich.php',
+    'history_limit' => 15,
+    'client_source' => 'web-mini',
+];

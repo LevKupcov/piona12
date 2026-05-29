@@ -1,0 +1,27 @@
+# Только три клиента попадают в репозиторий piona12 (см. правила ниже)
+/*
+!/.gitignore
+!/README.md
+!/Web-CompanyEnricher/
+!/Web-CompanyEnricher/**
+!/Desktop-CompanyEnricher/
+!/Desktop-CompanyEnricher/**
+!/Mobile-CompanyEnricher/
+!/Mobile-CompanyEnricher/**
+
+# Зависимости и сборки
+**/node_modules/
+**/dist/
+**/.gradle/
+**/build/
+**/local.properties
+**/.idea/
+**/.vscode/
+**/.kotlin/
+*.log
+*.zip
+
+# Секреты и локальные конфиги
+Web-CompanyEnricher/config.php
+Desktop-CompanyEnricher/engine/config/config.php
+Desktop-CompanyEnricher/engine/storage/logs/*.jsonl

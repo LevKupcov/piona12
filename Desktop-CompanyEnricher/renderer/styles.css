@@ -1,0 +1,168 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: linear-gradient(160deg, #0f172a 0%, #1e293b 45%, #0f172a 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 28px 24px 40px;
+}
+
+.header h1 {
+  margin: 0 0 8px;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.card {
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.card label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.card input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  background: #0f172a;
+  color: #f1f5f9;
+  font-size: 1rem;
+  margin-bottom: 14px;
+}
+
+.card input:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+button {
+  background: #2563eb;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.result-panel h2 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  color: #cbd5e1;
+}
+
+.result-panel.error {
+  background: rgba(127, 29, 29, 0.35);
+  border-color: #991b1b;
+}
+
+.result-panel.ok {
+  background: rgba(30, 41, 59, 0.85);
+}
+
+.result-lead {
+  margin: 0 0 12px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.field-rows {
+  display: grid;
+  gap: 8px;
+}
+
+.field-row {
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.field-row strong {
+  color: #93c5fd;
+  font-weight: 600;
+}
+
+.json-details {
+  margin-top: 16px;
+}
+
+.json-details summary {
+  cursor: pointer;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.hint {
+  margin: 10px 0 0;
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+.hint code {
+  color: #93c5fd;
+}
+
+.result-panel pre {
+  margin: 0;
+  padding: 14px;
+  background: #0f172a;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  overflow: auto;
+  max-height: 320px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.status {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  min-height: 1.4em;
+}
+
+.status.error {
+  color: #fca5a5;
+}
+
+.status.ok {
+  color: #86efac;
+}
+
+.status.loading {
+  color: #93c5fd;
+}

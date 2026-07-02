@@ -24,6 +24,12 @@ if ($auth !== null && in_array($event, $installEvents, true)) {
 }
 
 if ($auth !== null) {
+    $activityEnsureResult = (new AppInstaller(
+        new PortalStorage(),
+        app_endpoint_url('handler.php'),
+        app_endpoint_url('placement.php'),
+    ))->ensureActivityForAuth($auth);
+
     require __DIR__ . '/home.php';
     return;
 }

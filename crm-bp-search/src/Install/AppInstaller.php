@@ -44,6 +44,37 @@ final class AppInstaller
 
     /**
      * @param array<string, mixed> $auth
+     * @return array{status: string, error: string|null}
+     */
+    public function ensureActivityForAuth(array $auth): array
+    {
+        $memberId = (string) ($auth['member_id'] ?? $auth['domain'] ?? 'portal');
+
+        $this->storage->save($memberId, $auth, [
+            'handler_url' => $this->handlerUrl,
+            'placement_url' => $this->placementUrl,
+        ]);
+
+        $client = Client::fromAuth($auth, $this->storage);
+        $registrar = new ActivityRegistrar($client, $this->handlerUrl, $this->placementUrl);
+
+        try {
+            $registrar->update();
+            return ['status' => 'updated', 'error' => null];
+        } catch (\Throwable) {
+            // The activity may not exist yet on this portal.
+        }
+
+        try {
+            $registrar->register();
+            return ['status' => 'registered', 'error' => null];
+        } catch (\Throwable $e) {
+            return ['status' => 'error', 'error' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * @param array<string, mixed> $auth
      */
     private function installOrEnsureActivity(string $memberId, array $auth, string $event): void
     {

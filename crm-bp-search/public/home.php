@@ -20,6 +20,7 @@ $q = $auth !== null ? '?' . http_build_query([
 $launchUrl = app_endpoint_url('launch-search.php') . $q;
 $editorUrl = app_endpoint_url('conditions-editor.php') . $q;
 $bpSearchUrl = app_endpoint_url('bp-search.php') . $q;
+$activityEnsureResult = $activityEnsureResult ?? null;
 
 header('Content-Type: text/html; charset=utf-8');
 ?>
@@ -39,6 +40,9 @@ header('Content-Type: text/html; charset=utf-8');
         a.card b { display: block; font-size: 16px; margin-bottom: 6px; }
         a.card span { color: #828b95; font-size: 13px; }
         .primary { border-color: #2fc6f6; background: #f0fbff; }
+        .status { padding: 12px 14px; border-radius: 8px; margin: 0 0 14px; font-size: 13px; }
+        .status.ok { background: #e8f9f0; color: #1a7f4b; }
+        .status.err { background: #fee; color: #b00020; }
         #loading { color: #828b95; }
     </style>
 </head>
@@ -47,6 +51,18 @@ header('Content-Type: text/html; charset=utf-8');
     <div id="app" style="display:none">
         <h1>Поиск CRM в БП</h1>
         <p class="sub">Выберите действие</p>
+
+        <?php if (is_array($activityEnsureResult)): ?>
+            <?php if (($activityEnsureResult['status'] ?? '') === 'error'): ?>
+                <div class="status err">
+                    Activity не зарегистрировалась: <?= htmlspecialchars((string) ($activityEnsureResult['error'] ?? 'unknown error'), ENT_QUOTES, 'UTF-8') ?>
+                </div>
+            <?php else: ?>
+                <div class="status ok">
+                    Activity готова: <?= htmlspecialchars((string) ($activityEnsureResult['status'] ?? 'ok'), ENT_QUOTES, 'UTF-8') ?>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
 
         <a class="card primary" id="linkLaunch" href="<?= htmlspecialchars($launchUrl, ENT_QUOTES, 'UTF-8') ?>">
             <b>Запуск поиска с критериями</b>

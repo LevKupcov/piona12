@@ -155,9 +155,9 @@ final class ConditionsResolver
                 continue;
             }
 
-            $operator = strtolower(trim((string) ($properties['OPERATOR_' . $i] ?? 'equal')));
+            $operator = $this->normalizeOperator((string) ($properties['OPERATOR_' . $i] ?? 'equal'));
             $value = (string) ($properties['VALUE_' . $i] ?? '');
-            if ($operator !== 'empty' && trim($value) === '') {
+            if (!in_array($operator, ['empty', 'not_empty'], true) && trim($value) === '') {
                 continue;
             }
 
@@ -180,10 +180,10 @@ final class ConditionsResolver
         $conditions = [];
 
         foreach (self::DIRECT_FIELD_MAP as $key => $meta) {
-            $operator = strtolower(trim((string) ($properties['CRITERIA_OPERATOR_' . $key] ?? 'contains')));
+            $operator = $this->normalizeOperator((string) ($properties['CRITERIA_OPERATOR_' . $key] ?? 'contains'));
             $value = (string) ($properties['CRITERIA_VALUE_' . $key] ?? '');
 
-            if ($operator !== 'empty' && trim($value) === '') {
+            if (!in_array($operator, ['empty', 'not_empty'], true) && trim($value) === '') {
                 continue;
             }
 
@@ -215,7 +215,7 @@ final class ConditionsResolver
                 continue;
             }
 
-            $operator = strtolower(trim((string) ($item['operator'] ?? 'equal')));
+            $operator = $this->normalizeOperator((string) ($item['operator'] ?? 'equal'));
             $value = (string) ($item['value'] ?? '');
 
             $conditions[] = [
@@ -230,5 +230,16 @@ final class ConditionsResolver
         }
 
         return $conditions;
+    }
+
+    private function normalizeOperator(string $operator): string
+    {
+        return match (strtolower(trim($operator))) {
+            'equals' => 'equal',
+            'gt' => 'greater',
+            'lt' => 'less',
+            'notempty', 'not_empty' => 'not_empty',
+            default => strtolower(trim($operator)),
+        };
     }
 }

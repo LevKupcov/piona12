@@ -41,6 +41,10 @@ $cases['direct optional activity fields'] = [
     'CRITERIA_VALUE_OPPORTUNITY' => '1000',
 ];
 
+$cases['legacy json aliases'] = [
+    'CONDITIONS' => '[{"field":"TITLE","operator":"equals","value":"test"},{"field":"STAGE_ID","operator":"not_empty","value":""},{"field":"OPPORTUNITY","operator":"gt","value":"1000"}]',
+];
+
 foreach ($cases as $name => $props) {
     $result = $resolver->resolve($props);
     echo $name . ': ' . count($result) . " condition(s)\n";

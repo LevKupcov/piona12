@@ -12,6 +12,7 @@ $filter = $builder->build(
     [
         ['field' => 'TITLE', 'operator' => 'contains', 'value' => 'Договор'],
         ['field' => 'STAGE_ID', 'operator' => 'equal', 'value' => 'NEW'],
+        ['field' => 'COMPANY_ID', 'operator' => 'not_empty', 'value' => ''],
     ],
     'OR',
 );

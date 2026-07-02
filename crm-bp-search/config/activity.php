@@ -12,6 +12,7 @@ $operatorOptions = [
     'greater' => 'больше',
     'less' => 'меньше',
     'empty' => 'пусто',
+    'not_empty' => 'не пусто',
 ];
 
 $fieldOptions = [

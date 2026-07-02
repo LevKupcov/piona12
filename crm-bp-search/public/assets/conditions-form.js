@@ -11,6 +11,7 @@
         { v: 'greater', t: 'greater than' },
         { v: 'less', t: 'less than' },
         { v: 'empty', t: 'is empty' },
+        { v: 'not_empty', t: 'is not empty' },
     ];
 
     const FALLBACK = {
@@ -167,7 +168,7 @@
             const input = row.querySelector('.cf-value');
             const value = input.value;
 
-            if (operator !== 'empty' && value.trim() === '') {
+            if (!['empty', 'not_empty'].includes(operator) && value.trim() === '') {
                 return;
             }
 

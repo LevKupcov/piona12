@@ -14,6 +14,7 @@ final class FilterBuilder
         'greater' => '>',
         'less' => '<',
         'empty' => 'empty',
+        'not_empty' => 'not_empty',
     ];
 
     /**
@@ -38,7 +39,7 @@ final class FilterBuilder
                 continue;
             }
 
-            if ($operator !== 'empty' && trim((string) $value) === '') {
+            if (!in_array($operator, ['empty', 'not_empty'], true) && trim((string) $value) === '') {
                 throw new \InvalidArgumentException(
                     'Пустое значение для поля ' . $field . '. Укажите текст поиска, например {=Template:Parameter1}',
                 );
@@ -68,6 +69,9 @@ final class FilterBuilder
     {
         if ($operator === 'empty') {
             return ['=' . $field => false];
+        }
+        if ($operator === 'not_empty') {
+            return ['!' . $field => false];
         }
 
         $prefix = self::OPERATORS[$operator] ?? '=';

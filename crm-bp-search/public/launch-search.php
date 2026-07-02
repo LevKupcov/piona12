@@ -14,6 +14,7 @@ $hasAuth = $auth !== null;
 
 $fieldsApiUrl = app_endpoint_url('api/fields.php');
 $startApiUrl = app_endpoint_url('api/bp-start.php');
+$ensureActivityApiUrl = app_endpoint_url('api/ensure-activity.php');
 $defaultTemplateId = (int) (app_config('BP_LAUNCH_TEMPLATE_ID') ?? 0);
 $documentId = (int) ($request['document_id'] ?? $request['ID'] ?? 0);
 $entityHint = (string) ($request['entity'] ?? 'deal');
@@ -106,6 +107,7 @@ header('Content-Type: text/html; charset=utf-8');
     <script>
         const FIELDS_API = <?= json_encode($fieldsApiUrl) ?>;
         const START_API = <?= json_encode($startApiUrl) ?>;
+        const ENSURE_ACTIVITY_API = <?= json_encode($ensureActivityApiUrl) ?>;
         const HAS_AUTH = <?= $hasAuth ? 'true' : 'false' ?>;
         const AUTH = <?= json_encode($hasAuth ? [
             'AUTH_ID' => $auth['access_token'] ?? '',
@@ -116,6 +118,7 @@ header('Content-Type: text/html; charset=utf-8');
         const ENTITY_HINT = <?= json_encode($entityHint) ?>;
 
         let form;
+        let hasAuth = HAS_AUTH;
 
         function getLogic() {
             const r = document.querySelector('input[name="logic"]:checked');
@@ -129,7 +132,7 @@ header('Content-Type: text/html; charset=utf-8');
         }
 
         async function runSearch() {
-            if (!HAS_AUTH) {
+            if (!hasAuth) {
                 showMsg('Нет авторизации Bitrix24', false);
                 return;
             }
@@ -171,14 +174,34 @@ header('Content-Type: text/html; charset=utf-8');
             }
         }
 
+        async function ensureActivity() {
+            if (!hasAuth) {
+                return;
+            }
+
+            const body = new URLSearchParams(AUTH);
+            try {
+                const r = await fetch(ENSURE_ACTIVITY_API, { method: 'POST', body });
+                const d = await r.json();
+                if (!r.ok || d.error || d.status === 'error') {
+                    showMsg('Activity не зарегистрировалась: ' + (d.error || d.status || 'unknown error'), false);
+                    return;
+                }
+                showMsg('Activity готова: ' + (d.status || 'ok'), true);
+            } catch (e) {
+                showMsg('Activity не зарегистрировалась: ' + (e.message || String(e)), false);
+            }
+        }
+
         function boot(initial) {
             form = new ConditionsForm(document.getElementById('conditionsRoot'), {
                 fieldsApi: FIELDS_API,
                 auth: AUTH,
-                hasAuth: HAS_AUTH,
+                hasAuth,
             });
             form.init(initial);
             document.getElementById('runBtn').addEventListener('click', runSearch);
+            ensureActivity();
         }
 
         if (typeof BX24 !== 'undefined') {
@@ -190,6 +213,7 @@ header('Content-Type: text/html; charset=utf-8');
                     DOMAIN: auth.domain,
                     member_id: auth.member_id,
                 });
+                hasAuth = true;
                 boot({ entity: ENTITY_HINT, conditions: [{ field: 'TITLE', operator: 'contains', value: '' }] });
             });
         } else {

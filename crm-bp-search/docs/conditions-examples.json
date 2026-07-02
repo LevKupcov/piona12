@@ -1,0 +1,66 @@
+[
+  {
+    "comment": "Одно условие — заголовок сделки содержит текст",
+    "entity": "deal",
+    "logic": "AND",
+    "conditions": [
+      { "field": "TITLE", "operator": "contains", "value": "Договор" }
+    ],
+    "expected": "Все сделки с «Договор» в названии"
+  },
+  {
+    "comment": "Два условия с OR",
+    "entity": "lead",
+    "logic": "OR",
+    "conditions": [
+      { "field": "TITLE", "operator": "contains", "value": "заявка" },
+      { "field": "STATUS_ID", "operator": "equal", "value": "NEW" }
+    ],
+    "expected": "Лиды со словом «заявка» ИЛИ в статусе NEW"
+  },
+  {
+    "comment": "AND — название + сумма",
+    "entity": "deal",
+    "logic": "AND",
+    "conditions": [
+      { "field": "TITLE", "operator": "contains", "value": "договор" },
+      { "field": "OPPORTUNITY", "operator": "greater", "value": "10000" }
+    ],
+    "select_fields": "STAGE_ID, OPPORTUNITY",
+    "expected": "FOUND_ITEMS содержит стадию и сумму"
+  },
+  {
+    "comment": "Подстановка из документа БП",
+    "entity": "deal",
+    "logic": "AND",
+    "conditions": [
+      { "field": "COMPANY_ID", "operator": "equal", "value": "{=Document:COMPANY_ID}" }
+    ],
+    "expected": "Все сделки той же компании, что и текущая"
+  },
+  {
+    "comment": "Смарт-процесс — нужен SMART_TYPE_ID",
+    "entity": "smart",
+    "smart_type_id": 128,
+    "logic": "AND",
+    "conditions": [
+      { "field": "title", "operator": "contains", "value": "тест" }
+    ],
+    "expected": "Элементы смарт-процесса с «тест» в title"
+  },
+  {
+    "comment": "Тестовый набор для портала (3+ сделки)",
+    "test_deals": [
+      "Тестовая сделка",
+      "Договор тест №1",
+      "Просто тест",
+      "Договор без совпадения"
+    ],
+    "entity": "deal",
+    "logic": "AND",
+    "conditions": [
+      { "field": "TITLE", "operator": "contains", "value": "тест" }
+    ],
+    "expected_FOUND_COUNT": 3
+  }
+]

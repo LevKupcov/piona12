@@ -3,7 +3,7 @@
 Current local tunnel:
 
 ```text
-https://pentagram-thumping-buddy.ngrok-free.dev
+https://41384e0af33150.lhr.life
 ```
 
 Use these values in Bitrix24 developer app settings:
@@ -11,10 +11,10 @@ Use these values in Bitrix24 developer app settings:
 ```text
 Application type: Server
 Handler path:
-https://pentagram-thumping-buddy.ngrok-free.dev/work/crm-bp-search/public/app.php
+https://41384e0af33150.lhr.life/app.php
 
 Initial installation path:
-https://pentagram-thumping-buddy.ngrok-free.dev/work/crm-bp-search/public/install.php
+https://41384e0af33150.lhr.life/install.php
 
 Uses only API: no
 Supports BitrixMobile: no
@@ -41,7 +41,7 @@ Search CRM by fields / Поиск CRM по полям
 Health check:
 
 ```text
-https://pentagram-thumping-buddy.ngrok-free.dev/work/crm-bp-search/public/health.php
+https://41384e0af33150.lhr.life/health.php
 ```
 
-Important: free ngrok domains can show an interstitial warning (`ERR_NGROK_6024`) to browsers and clients that do not send the `ngrok-skip-browser-warning` request header. Bitrix24 usually cannot be configured to send that header. If Bitrix24 shows the ngrok warning instead of the app, use a public HTTPS URL without an interstitial warning, for example a paid/static ngrok domain, Cloudflare Tunnel, or normal hosting.
+Important: this is a temporary localhost.run SSH tunnel. Keep the `ssh` process running while installing and testing the Bitrix24 app. If the tunnel is restarted, localhost.run can issue a new URL, and the Bitrix24 app settings plus `.env` must be updated.

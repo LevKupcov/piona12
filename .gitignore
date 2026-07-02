@@ -1,6 +1,7 @@
 .env
 *.log
 *.tmp
+.tools/
 crm-bp-search/.env
 crm-bp-search/data/portals/
 crm-bp-search/data/*.json
